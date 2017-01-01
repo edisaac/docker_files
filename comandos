@@ -31,3 +31,7 @@ Ver el log de un contenedor
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 docker logs -f cubic
 
+
+docker run -p 8071:8069 --name dev --link db:db -t cubicdev
+
+docker run -v /mnt/DISCO_F/git/odoo_cubic:/etc/odoo_cubic -p 8069:8069 --name dev --link db:db -t cubicdev

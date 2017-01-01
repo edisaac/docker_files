@@ -35,7 +35,7 @@ RUN set -x; \
         && pip install \
 		suds 		xmlsec 			cryptography 		boxsdk		
 
-RUN set -x; \	
+RUN set -x; \
 	pip install \
 		jinja2 		CubicReport 		decorator 		requests 	\
 		pyPdf 		openerp-client-lib 	openerp-client-etl 	gunicorn 	\
@@ -57,16 +57,16 @@ COPY ./entrypoint.sh /
 # Creating user Odoo 
 RUN groupadd odoo \
 	&& useradd -s /bin/false -g odoo -d /opt/odoo odoo \
-	&& chown odoo ${ODOO_PATH}/odoo.conf \
+	
 	&& chmod +x /entrypoint.sh 
 
 # Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN mkdir -p /mnt/extra-addons \
     && chown -R odoo /mnt/extra-addons \
-	&& mkdir -p /var/lib/odoo \	
-	&& chown -R odoo /var/lib/odoo 
-
-
+	&& mkdir -p /var/lib/odoo \
+	&& chown -R odoo /var/lib/odoo  \
+	&& mkdir -p ${ODOO_PATH} \
+	&& chown odoo ${ODOO_PATH} 
 # Expose Odoo services
 EXPOSE 8069 8071
 
