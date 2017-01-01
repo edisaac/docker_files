@@ -20,7 +20,7 @@ RUN set -x; \
 RUN set -x; \
 	apt-get install -y --no-install-recommends \
 		git 			curl			gdebi			 
- 
+
 RUN set -x; \
         curl -o wkhtmltox.deb -SL http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb \
         && echo '7dd0e9be7e4fa2a58aa7066460927cdb8ba07492 wkhtmltox.deb' | sha1sum -c - \
@@ -42,31 +42,30 @@ RUN set -x; \
 		passlib 	psycogreen 		pytesseract 		pycrypto 	\
 		qrcode		image			pyinotify
 
- 
 
 ENV ODOO_PATH /etc/odoo_cubic
 
+VOLUME ["/var/lib/odoo", "/mnt/extra-addons",${ODOO_PATH}]
+
 # Install Odoo
-ADD ./odoo_cubic.tar.gz /etc/
+#ADD ./odoo_cubic.tar.gz /etc/
 
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
-COPY ./odoo.conf ${ODOO_PATH}/
+#COPY ./odoo.conf ${ODOO_PATH}/
 
 # Creating user Odoo 
-RUN 	groupadd odoo \
+RUN groupadd odoo \
 	&& useradd -s /bin/false -g odoo -d /opt/odoo odoo \
 	&& chown odoo ${ODOO_PATH}/odoo.conf \
 	&& chmod +x /entrypoint.sh 
-	
 
 # Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN mkdir -p /mnt/extra-addons \
-        && chown -R odoo /mnt/extra-addons \
+    && chown -R odoo /mnt/extra-addons \
 	&& mkdir -p /var/lib/odoo \	
-        && chown -R odoo /var/lib/odoo 
+	&& chown -R odoo /var/lib/odoo 
 
-VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
 # Expose Odoo services
 EXPOSE 8069 8071
