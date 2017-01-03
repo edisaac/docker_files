@@ -32,10 +32,15 @@ Ver el log de un contenedor
 docker logs -f cubic
 
 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+conectandos al bash de un contenedor
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+docker exec -it container_id  bash
+
+-------------------------------------------------------
 docker run -p 8071:8069 --name dev --link db:db -t cubicdev
 
 docker run -v /mnt/DISCO_F/git/odoo_cubic:/etc/odoo_cubic -p 8069:8069 --name dev --link db:db -t cubicdev
-
 
 docker tag e3c2a8b102c5 edisaac/cubic:prod
 
