@@ -23,23 +23,10 @@ check_config "db_port" "$PORT"
 check_config "db_user" "$USER"
 check_config "db_password" "$PASSWORD"
 
-case "$1" in
-    -- | odoo)
-        shift
-        if [[ "$1" == "scaffold" ]] ; then
-            exec odoo "$@"
-        else
-            #exec odoo "$@" "${DB_ARGS[@]}"	   
-	    cd $ODOO_PATH
-	    $ODOO_PATH/openerp-server -c $ODOO_RC  --pidfile=.oer.pid ${DB_ARGS[@]} $@
-        fi
-        ;;
-    -*)
-        exec odoo "$@" "${DB_ARGS[@]}"
-        ;;
-    *)
-        exec "$@"
-esac
+   
+cd $ODOO_PATH
+$ODOO_PATH/openerp-server -c $ODOO_RC  --pidfile=.oer.pid ${DB_ARGS[@]} $@
+
 
 exit 1
 

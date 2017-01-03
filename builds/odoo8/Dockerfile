@@ -44,8 +44,10 @@ RUN set -x; \
 
 
 ENV ODOO_PATH /etc/odoo
+ENV ODOO_DATA /var/lib/odoo
+ENV ODOO_ADDONS /mnt/extra-addons
 
-VOLUME ["/var/lib/odoo", "/mnt/extra-addons",${ODOO_PATH}]
+VOLUME [${ODOO_DATA}, ${ODOO_ADDONS},${ODOO_PATH}]
 
 # Install Odoo
 #ADD ./odoo_cubic.tar.gz /etc/
@@ -56,15 +58,14 @@ COPY ./entrypoint.sh /
 
 # Creating user Odoo 
 RUN groupadd odoo \
-	&& useradd -s /bin/false -g odoo -d /opt/odoo odoo \
-	
+	&& useradd -s /bin/false -g odoo -d /opt/odoo odoo \	
 	&& chmod +x /entrypoint.sh 
 
 # Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
-RUN mkdir -p /mnt/extra-addons \
-    && chown -R odoo /mnt/extra-addons \
-	&& mkdir -p /var/lib/odoo \
-	&& chown -R odoo /var/lib/odoo  \
+RUN mkdir -p ${ODOO_ADDONS} \
+    && chown -R odoo ${ODOO_ADDONS} \
+	&& mkdir -p ${ODOO_DATA} \
+	&& chown -R odoo ${ODOO_DATA}  \
 	&& mkdir -p ${ODOO_PATH} \
 	&& chown odoo ${ODOO_PATH} 
 # Expose Odoo services
