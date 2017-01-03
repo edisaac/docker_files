@@ -43,7 +43,7 @@ RUN set -x; \
 		qrcode		image			pyinotify
 
 
-ENV ODOO_PATH /etc/odoo_cubic
+ENV ODOO_PATH /etc/odoo
 
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons",${ODOO_PATH}]
 
