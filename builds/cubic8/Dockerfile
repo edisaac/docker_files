@@ -6,16 +6,16 @@ RUN set -x; \
         apt-get update \
         && apt-get install -y --no-install-recommends \
 		python-docutils 	python-gdata 		python-mako 		python-dateutil 	\
-		python-feedparser 	python-lxml 		python-tz 		python-vatnumber 	\
+		python-feedparser 	python-lxml 		python-tz 			python-vatnumber 	\
 		python-webdav 		python-xlwt 		python-werkzeug 	python-yaml 		\
-		python-zsi 		python-unittest2	python-mock 		python-libxslt1 	\
+		python-zsi 			python-unittest2	python-mock 		python-libxslt1 	\
 		python-ldap 		python-reportlab	python-pybabel 		python-pychart 		\
 		python-simplejson 	python-psycopg2		python-vobject 		python-openid 		\
-		python-setuptools 	postgresql-client	unixodbc 		unixodbc-dev 		\
-		python-pyodbc 		python-psutil 		nginx 			python-gevent 		\
+		python-setuptools 	postgresql-client	unixodbc 			unixodbc-dev 		\
+		python-pyodbc 		python-psutil 		nginx 				python-gevent 		\
 		language-pack-es 	tesseract-ocr 		tesseract-ocr-eng	python-m2crypto 	\
 		libxml2-dev 		libxmlsec1-dev 		build-essential 	libssl-dev 		\
-		libffi-dev		python-dev 		python-pip 		python-openpyxl 	
+		libffi-dev			python-dev 			python-pip 			python-openpyxl 	
 
 RUN set -x; \
 	apt-get install -y --no-install-recommends \
