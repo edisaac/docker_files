@@ -1,27 +1,39 @@
-# Odoo server itself
-app:
-    image: edisaac/odoo:8.0
-    # Allow colorized output
-    tty: true
-    # If you are going to use the HTTPS proxy for production,
-    # don't expose any ports
-    ports:
-        - "8069:8069"
-        - "8072:8072"
-    # Code is in local for development    
-    volumes:        
-        - /mnt/DISCO_F/git/cubic:/etc/odoo
-        - /mnt/DISCO_F/git/odoo_adoons:/mnt/extra-addons
-        - /mnt/DISCO_F/docker_mount/odoo:/var/lib/odoo
+version: '2'
+services:
+    # Odoo server itself
+    app:
+        image: edisaac/odoo:8.0
+        # Allow colorized output
+        tty: true
+        # If you are going to use the HTTPS proxy for production,
+        # don't expose any ports
+        ports:
+            - "8069:8069"
+            - "8072:8072"
+        # Code is in local for development    
+        volumes:        
+            - /mnt/DISCO_F/git/cubic:/etc/odoo
+            - /mnt/DISCO_F/git/odoo_adoons:/mnt/extra-addons
+            - web-data:/var/lib/odoo
+            #- /mnt/DISCO_F/docker_mount/odoo:/var/lib/odoo
 
-    links:
-        - db 
-    command:
-        - "-d Test01 -u open_academy"
-# PostgreSQL server
-db:
-    image: postgres:9.4-alpine
-    environment:
-        # You **must** change these
-        POSTGRES_USER: odoo
-        POSTGRES_PASSWORD: odoo
+        links:
+            - db 
+        command:
+            - "-d Test01 -u open_academy"
+    # PostgreSQL server
+    db:
+        image: postgres:9.4-alpine
+        environment:
+            # You **must** change these
+            - POSTGRES_USER=odoo
+            - POSTGRES_PASSWORD=odoo
+            - PGDATA=/var/lib/postgresql/data/pgdata
+        volumes:
+            - db-data:/var/lib/postgresql/data/pgdata
+        ports:
+            - "5431:5432"
+volumes:
+  web-data:
+  db-data:
+

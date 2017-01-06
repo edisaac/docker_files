@@ -29,3 +29,5 @@ docker tag e3c2a8b102c5 edisaac/cubic:prod
 
 #Compose
 docker-compose up
+
+docker volume rm $(docker volume ls -qf dangling=true)
