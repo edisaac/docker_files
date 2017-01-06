@@ -12,7 +12,7 @@ services:
             - "8072:8072"
         # Code is in local for development    
         volumes:        
-            - /mnt/DISCO_F/git/cubic:/etc/odoo
+            - /mnt/DISCO_F/git/odoo:/etc/odoo
             - /mnt/DISCO_F/git/odoo_adoons:/mnt/extra-addons
             - web-data:/var/lib/odoo
             #- /mnt/DISCO_F/docker_mount/odoo:/var/lib/odoo
