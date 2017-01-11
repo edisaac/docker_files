@@ -31,3 +31,9 @@ docker tag e3c2a8b102c5 edisaac/cubic:prod
 docker-compose up
 
 docker volume rm $(docker volume ls -qf dangling=true)
+
+
+
+
+montar disco
+https://lists.centos.org/pipermail/centos-es/2009-December/006688.html

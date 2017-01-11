@@ -22,15 +22,6 @@ RUN set -x; \
 		git 			curl			gdebi			 
 
 RUN set -x; \
-        curl -o wkhtmltox.deb -SL http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb \
-        && echo '7dd0e9be7e4fa2a58aa7066460927cdb8ba07492 wkhtmltox.deb' | sha1sum -c - \
-        && sudo gdebi wkhtmltox.deb \
-	&& apt-get -y install -f --no-install-recommends \
-        && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false npm \
-        && rm -rf /var/lib/apt/lists/* wkhtmltox.deb 
-
-
-RUN set -x; \
 	pip install --upgrade pip \
         && pip install \
 		suds 		xmlsec 			cryptography 		boxsdk		
@@ -41,6 +32,18 @@ RUN set -x; \
 		pyPdf 		openerp-client-lib 	openerp-client-etl 	gunicorn 	\
 		passlib 	psycogreen 		pytesseract 		pycrypto 	\
 		qrcode		image			pyinotify
+RUN set -x; \
+        curl -o wkhtmltox.deb -SL http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb \
+        && echo '7dd0e9be7e4fa2a58aa7066460927cdb8ba07492 wkhtmltox.deb' | sha1sum -c - 
+RUN set -x; \        
+        sudo dpkg -i wkhtmltox.deb \
+		&& apt-get -y install -f --no-install-recommends \
+        && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false npm \
+        && rm -rf /var/lib/apt/lists/* wkhtmltox.deb 
+
+RUN set -x; \
+        cp /usr/local/bin/wkhtmltopdf /usr/bin \
+        && cp /usr/local/bin/wkhtmltoimage /usr/bin
 
 
 ENV ODOO_PATH /etc/odoo
